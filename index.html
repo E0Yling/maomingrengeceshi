@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>茂名人格图鉴</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: linear-gradient(135deg, #ff6b35, #f7931e, #ffb347);
+  min-height: 100vh;
+  color: #333;
+}
+.container { max-width: 420px; margin: 0 auto; padding: 20px 16px 40px; }
+
+.hero { text-align: center; padding: 40px 0 30px; }
+.hero .tagline {
+  display: inline-block;
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+  font-size: 13px;
+  padding: 6px 16px;
+  border-radius: 20px;
+  margin-bottom: 16px;
+}
+.hero h1 {
+  font-size: 36px;
+  color: #fff;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.2);
+  margin-bottom: 6px;
+  letter-spacing: 2px;
+}
+.hero .subtitle {
+  font-size: 14px;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.7;
+  margin-bottom: 28px;
+}
+.hero .icon-row { font-size: 44px; margin-bottom: 16px; letter-spacing: 6px; }
+
+.start-btn {
+  display: inline-block;
+  background: #fff;
+  color: #e86a1d;
+  font-size: 18px;
+  font-weight: 700;
+  padding: 15px 52px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.18);
+  transition: transform 0.15s;
+}
+.start-btn:active { transform: scale(0.96); }
+
+.card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 28px 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.progress-wrap { margin-bottom: 20px; }
+.progress-bar { height: 6px; background: #eee; border-radius: 3px; overflow: hidden; }
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ff6b35, #f7931e);
+  border-radius: 3px;
+  transition: width 0.3s;
+}
+.progress-text { font-size: 12px; color: #999; margin-top: 6px; text-align: right; }
+
+.q-title { font-size: 18px; font-weight: 700; margin-bottom: 20px; line-height: 1.5; color: #222; }
+.option {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: #f8f8f8;
+  border: 2px solid transparent;
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  font-size: 15px;
+  color: #444;
+  cursor: pointer;
+  transition: all 0.15s;
+  line-height: 1.4;
+}
+.option:active, .option.selected { background: #fff5ed; border-color: #ff6b35; color: #e86a1d; }
+
+.result-section { display: none; }
+.result-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 28px 20px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  margin-bottom: 16px;
+}
+.result-icon { font-size: 60px; margin-bottom: 8px; }
+.result-label {
+  display: inline-block;
+  background: linear-gradient(135deg, #ff6b35, #f7931e);
+  color: #fff;
+  font-size: 22px;
+  font-weight: 800;
+  padding: 8px 26px;
+  border-radius: 50px;
+  margin-bottom: 14px;
+}
+.result-punch {
+  font-size: 16px;
+  color: #e86a1d;
+  font-weight: 700;
+  line-height: 1.6;
+  margin-bottom: 14px;
+  background: #fff5ed;
+  padding: 12px 16px;
+  border-radius: 12px;
+}
+.result-desc {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.7;
+  margin-bottom: 14px;
+}
+.result-motto {
+  display: inline-block;
+  color: #999;
+  font-size: 13px;
+  margin-bottom: 18px;
+  font-style: italic;
+}
+.result-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 6px;
+}
+.tag {
+  background: #f0f0f0;
+  color: #777;
+  font-size: 12px;
+  padding: 4px 12px;
+  border-radius: 12px;
+}
+
+.share-hint {
+  background: #fff5ed;
+  border-radius: 14px;
+  padding: 18px 16px;
+  text-align: center;
+  margin-bottom: 16px;
+}
+.share-hint p { font-size: 14px; color: #e86a1d; font-weight: 600; margin-bottom: 12px; }
+.share-btn {
+  display: inline-block;
+  background: linear-gradient(135deg, #ff6b35, #f7931e);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 10px 36px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+}
+.share-btn:active { transform: scale(0.96); }
+.retake-btn {
+  display: block;
+  width: 100%;
+  background: #fff;
+  color: #999;
+  border: 1px solid #ddd;
+  font-size: 13px;
+  padding: 12px;
+  border-radius: 50px;
+  cursor: pointer;
+  text-align: center;
+}
+.hidden { display: none; }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- 首页 -->
+  <section id="homeSection">
+    <div class="hero">
+      <div class="tagline">MBTI 已经过时了</div>
+      <h1>茂名人格图鉴</h1>
+      <div class="icon-row">🐔🌊🦐🔥🍊</div>
+      <p class="subtitle">7 道题，测出你的茂名隐藏人格<br>不准算我输（输了就输了）</p>
+      <button class="start-btn" onclick="start()">开始测试</button>
+    </div>
+    <div class="card" style="text-align:center; color:#999; font-size:12px;">
+      已有 <b id="fakeCount" style="color:#ff6b35;">3,000</b>+ 茂名人测过 · 朋友圈已沦陷
+    </div>
+  </section>
+
+  <!-- 题目区 -->
+  <section id="quizSection" class="hidden">
+    <div class="progress-wrap">
+      <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+      <div class="progress-text" id="progressText">1/7</div>
+    </div>
+    <div class="card" id="questionCard"></div>
+  </section>
+
+  <!-- 结果区 -->
+  <section id="resultSection" class="result-section"></section>
+</div>
+
+<script>
+const P = {
+
+  baigiegji: {
+    label: '茂名·白切鸡杀手',
+    icon: '🐔',
+    punch: '平时不声不响，年例蹲角落吃完一整只鸡的就是你。',
+    desc: '看起来平平无奇，蘸了沙姜酱油才露出真面目。表面好欺负，惹急了比走地鸡还难抓。主打一个「闷声吃鸡，深藏不露」。',
+    motto: '你以为我普通，其实我在等沙姜。',
+    tags: ['闷声发大财', '内秀型', '慢性子暴击', '细节控']
+  },
+
+  shouzu: {
+    label: '茂名·收租未遂人',
+    icon: '🏠',
+    punch: '你的理想是收租，现实是在交租。但这不影响你觉得自己迟早是包租公。',
+    desc: '天天想躺平，月月满勤。嘴上说着不想干了，干活比谁都猛。你不是真的想收租，你只是需要一个不用跟人解释的人生。',
+    motto: '梦想还是有的，万一拆迁了呢。',
+    tags: ['躺平妄想症', '自由派', '打工魂不灭', '乐观']
+  },
+
+  nianli: {
+    label: '茂名·年例VIP中P',
+    icon: '🥁',
+    punch: '你有年例必到，到了必吃，吃了必夸——就是不给红包。但没你的年例，菜都是凉的。',
+    desc: '社交界的永动机，局没了你能散一半。你不是在去年例，就是在去年例的路上。人脉全靠一张嘴和两条腿。',
+    motto: '没有我，这张桌凑不齐。',
+    tags: ['社交恐怖分子', '气氛组组长', '人脉型选手', '大大咧咧']
+  },
+
+  haixian: {
+    label: '茂名·海鲜体质',
+    icon: '🦐',
+    punch: '你对工作的热情跟茂名海鲜一个规律——上午还活蹦乱跳，下午就臭了。',
+    desc: '新鲜感是你的氧气，无聊是你的天敌。一个项目做超过三个月就要窒息了。不是不靠谱，是你只对感兴趣的事靠谱。',
+    motto: '趁热吃，别等凉。包括我本人。',
+    tags: ['三分钟热度选手', '创意型', '行动力忽高忽低', '爱尝鲜']
+  },
+
+  lizhi: {
+    label: '茂名·表面荔枝内心榴莲',
+    icon: '🔥',
+    punch: '你跟白糖罂一模一样——看着好接近，剥开全是核。熟了才知道甜，不熟的人觉得你浑身是刺。',
+    desc: '对生人高冷，对熟人疯癫。你不是高冷，你只是懒得跟不熟的人演戏。一旦进入你的朋友圈，发现你比年例的菜还热闹。',
+    motto: '别被我的壳骗了，里面是另一个壳。',
+    tags: ['慢热型', '社恐装社牛', '护短狂魔', '两极反转']
+  },
+
+  shiyou: {
+    label: '茂名·硬扛型炼油战士',
+    icon: '🛢️',
+    punch: '你的人生信条：忍一忍就过去了——然后忍了一辈子。压力越大越沉默，不是没事，是懒得说。',
+    desc: '闷声干大事的典型。出了问题第一反应不是求助，是「我自己再试试」。朋友眼里最靠谱的人，但你自己知道，靠谱的代价是秃头。',
+    motto: '多喝热水，扛一扛就过去了。',
+    tags: ['抗压天花板', '务实派', '沉默即答案', '靠谱但头秃']
+  }
+
+};
+
+const QUESTIONS = [
+  {
+    id: 1,
+    title: '茂名朋友喊你去年例，你的真实内心戏是？',
+    options: [
+      { text: '已经在想穿什么了，没我到场算什么年例', scores: { nianli: 3 } },
+      { text: '表面答应，内心计算距离和要不要给红包', scores: { shiyou: 3 } },
+      { text: '看菜单决定去不去——有龙虾必到', scores: { haixian: 3 } },
+      { text: '去了直奔角落桌，全程埋头吃白切鸡', scores: { baigiegji: 3 } },
+      { text: '先问还有谁去，有不想见的人就果断装死', scores: { lizhi: 3 } },
+      { text: '想去但不想出门，到了现场又不想走', scores: { shouzu: 3 } }
+    ]
+  },
+  {
+    id: 2,
+    title: '老板说「年轻人要多奋斗」，你脑子里第一个念头是？',
+    options: [
+      { text: '你说的都对，但我的工资不太对', scores: { shiyou: 3 } },
+      { text: '脑子里已经把他 P 成了白切鸡', scores: { baigiegji: 3 } },
+      { text: '奋斗可以，加班费先结一下', scores: { nianli: 3 } },
+      { text: '明天就辞职.jpg（然后继续干了三年）', scores: { shouzu: 3 } },
+      { text: '面上微笑点头，心里已经在刷招聘 APP', scores: { lizhi: 3 } },
+      { text: '已经在想午饭吃什么了', scores: { haixian: 3 } }
+    ]
+  },
+  {
+    id: 3,
+    title: '茂名夏天 35°C 没空调，你的真实应对是？',
+    options: [
+      { text: '一滩走起，直接泡海里，还开什么空调', scores: { haixian: 3 } },
+      { text: '忍，心静自然凉，热到扑街也不能狼狈', scores: { shiyou: 3 } },
+      { text: '商场蹭空调顺便逛一圈，说不定还偶遇熟人', scores: { nianli: 3 } },
+      { text: '暴躁输出「热到扑街！」，然后开风扇继续扛', scores: { lizhi: 3 } },
+      { text: '一动不动，主打一个节能模式', scores: { baigiegji: 3 } },
+      { text: '已经在搜「云南租房」了，这个茂名不待也罢', scores: { shouzu: 3 } }
+    ]
+  },
+  {
+    id: 4,
+    title: '去河东市场买菜，你的画风最接近哪种？',
+    options: [
+      { text: '列好清单直奔目标摊位，买完就走，一分钟不多待', scores: { shiyou: 3 } },
+      { text: '兜一圈比价，最后买最平那档，省到就是赚到', scores: { baigiegji: 3 } },
+      { text: '「靓女今日咩海鲜新鲜」——只关心海鲜区', scores: { haixian: 3 } },
+      { text: '见到熟人聊半小时，菜没买完八卦先听完', scores: { nianli: 3 } },
+      { text: '拿起来放下，逛了半小时只买了根葱', scores: { lizhi: 3 } },
+      { text: '什么好看买什么，买到什么煮什么', scores: { shouzu: 3 } }
+    ]
+  },
+  {
+    id: 5,
+    title: '朋友圈刷到前同事在晒高薪，你的第一反应是？',
+    options: [
+      { text: '默默算了一下自己的时薪，然后划走', scores: { shiyou: 3 } },
+      { text: '点了个赞，内心毫无波澜——已经麻了', scores: { baigiegji: 3 } },
+      { text: '截图发闺蜜群「你看人家！」，然后继续摆烂', scores: { nianli: 3 } },
+      { text: '研究了一下他做什么的，然后开始搜副业攻略', scores: { lizhi: 3 } },
+      { text: '滑走，然后叫了份海鲜外卖安慰自己', scores: { haixian: 3 } },
+      { text: '假的，肯定是家里有矿，反正不是靠能力', scores: { shouzu: 3 } }
+    ]
+  },
+  {
+    id: 6,
+    title: '你的理想周末是什么样？',
+    options: [
+      { text: '睡到自然醒，下午再说，最好没人找我', scores: { shouzu: 3 } },
+      { text: '约人喝早茶，周末不 social 等于白放假', scores: { nianli: 3 } },
+      { text: '趁没人打扰，赶紧搞自己的事/副业', scores: { shiyou: 3 } },
+      { text: '海堤散步 + 海鲜大排档 + 朋友圈九宫格', scores: { haixian: 3 } },
+      { text: '在家宅着，外卖是最好的陪伴', scores: { baigiegji: 3 } },
+      { text: '出门前精心打扮，出门后懒得社交，回家又后悔没玩够', scores: { lizhi: 3 } }
+    ]
+  },
+  {
+    id: 7,
+    title: '周四下午两点，你大概率在干嘛？',
+    options: [
+      { text: '坐办公室对电脑，屏幕都不敢切出去', scores: {} },
+      { text: '在外面跑，见人 / 送货 / 巡店 / 跑业务', scores: {} },
+      { text: '在车间 / 工地 / 操作间，手上沾着东西', scores: {} },
+      { text: '在教室 / 图书馆 / 宿舍', scores: {} },
+      { text: '说不准，每天不一样，主打一个自由', scores: {} },
+      { text: '在家，别问，问就是在探索人生', scores: {} }
+    ]
+  }
+];
+
+let scores = {};
+let currentQ = 0;
+let careerAnswer = null;
+
+function start() {
+  scores = { baigiegji: 0, shouzu: 0, nianli: 0, haixian: 0, lizhi: 0, shiyou: 0 };
+  currentQ = 0;
+  careerAnswer = null;
+  document.getElementById('homeSection').classList.add('hidden');
+  document.getElementById('quizSection').classList.remove('hidden');
+  document.getElementById('resultSection').style.display = 'none';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  showQuestion();
+}
+
+function showQuestion() {
+  const q = QUESTIONS[currentQ];
+  const total = QUESTIONS.length;
+  const pct = Math.round((currentQ / total) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressText').textContent = (currentQ + 1) + '/' + total;
+
+  let html = '<div class="q-title">' + q.title + '</div>';
+  q.options.forEach((opt, i) => {
+    html += '<button class="option" onclick="pick(' + i + ', this)">' + opt.text + '</button>';
+  });
+  document.getElementById('questionCard').innerHTML = html;
+}
+
+function pick(optIndex, btn) {
+  document.querySelectorAll('.option').forEach(el => el.classList.remove('selected'));
+  btn.classList.add('selected');
+
+  setTimeout(() => {
+    const q = QUESTIONS[currentQ];
+    const chosen = q.options[optIndex];
+
+    if (q.id === 7) {
+      careerAnswer = chosen.text;
+    } else {
+      for (let [key, val] of Object.entries(chosen.scores)) {
+        scores[key] = (scores[key] || 0) + val;
+      }
+    }
+
+    currentQ++;
+    if (currentQ < QUESTIONS.length) {
+      showQuestion();
+    } else {
+      showResult();
+    }
+  }, 200);
+}
+
+function showResult() {
+  document.getElementById('quizSection').classList.add('hidden');
+
+  let maxKey = 'baigiegji';
+  let maxVal = 0;
+  for (let [k, v] of Object.entries(scores)) {
+    if (v > maxVal) { maxVal = v; maxKey = k; }
+  }
+
+  const p = P[maxKey];
+
+  let extraTag = '';
+  if (careerAnswer) {
+    if (careerAnswer.includes('办公室') || careerAnswer.includes('电脑')) extraTag = '办公室战士';
+    else if (careerAnswer.includes('跑') || careerAnswer.includes('送货') || careerAnswer.includes('见人')) extraTag = '奔波型选手';
+    else if (careerAnswer.includes('车间') || careerAnswer.includes('工地') || careerAnswer.includes('操作间')) extraTag = '实干派';
+    else if (careerAnswer.includes('教室') || careerAnswer.includes('图书馆') || careerAnswer.includes('宿舍')) extraTag = '校园党';
+    else if (careerAnswer.includes('自由') || careerAnswer.includes('说不准')) extraTag = '自由身';
+    else extraTag = '探索中';
+  }
+
+  const html =
+    '<div class="result-card">' +
+      '<div class="result-icon">' + p.icon + '</div>' +
+      '<div class="result-label">' + p.label + '</div>' +
+      '<div class="result-punch">' + p.punch + '</div>' +
+      '<div class="result-desc">' + p.desc + '</div>' +
+      '<div class="result-motto">' + p.motto + '</div>' +
+      '<div class="result-tags">' +
+        p.tags.map(function(t) { return '<span class="tag">' + t + '</span>'; }).join('') +
+        (extraTag ? '<span class="tag">' + extraTag + '</span>' : '') +
+      '</div>' +
+    '</div>' +
+    '<div class="share-hint">' +
+      '<p>截图发朋友圈，看看你朋友是什么茂名人格</p>' +
+      '<button class="share-btn" onclick="share()">发给朋友</button>' +
+    '</div>' +
+    '<button class="retake-btn" onclick="start()">再测一次</button>';
+
+  document.getElementById('resultSection').innerHTML = html;
+  document.getElementById('resultSection').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function share() {
+  var maxKey = 'baigiegji';
+  var maxVal = 0;
+  for (var k in scores) { if (scores[k] > maxVal) { maxVal = scores[k]; maxKey = k; } }
+  var p = P[maxKey];
+  var text = '我居然是「' + p.label + '」！\n\n' + p.punch + '\n\n你也来测测你的茂名人格 →';
+
+  if (navigator.share) {
+    navigator.share({ title: '茂名人格图鉴', text: text, url: location.href })
+      .catch(function() { fallbackCopy(text); });
+  } else {
+    fallbackCopy(text);
+  }
+}
+
+function fallbackCopy(text) {
+  var ta = document.createElement('textarea');
+  ta.value = text + '\n' + location.href;
+  ta.style.position = 'fixed'; ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.select();
+  try {
+    document.execCommand('copy');
+    alert('已复制文案，去发给朋友吧！');
+  } catch(e) {
+    alert('截图发朋友圈吧！长按保存结果页图片\n\n' + text);
+  }
+  document.body.removeChild(ta);
+}
+
+(function() {
+  var base = 3000 + Math.floor(Math.random() * 500);
+  var el = document.getElementById('fakeCount');
+  if (el) el.textContent = base.toLocaleString();
+})();
+</script>
+</body>
+</html>
