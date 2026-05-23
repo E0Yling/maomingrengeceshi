@@ -11,22 +11,22 @@ body {
   background: linear-gradient(160deg, #e8f5e9 0%, #fff9c4 40%, #ffe0b2 100%);
   min-height: 100vh; color: #333;
 }
-.page { max-width: 430px; margin: 0 auto; padding: 8px 12px 16px; min-height: 100vh; display: flex; flex-direction: column; }
+.page { max-width: 430px; margin: 0 auto; padding: 6px 10px 12px; min-height: 100vh; display: flex; flex-direction: column; }
 
-.header { text-align: center; padding: 4px 0 0; }
+.header { text-align: center; padding: 2px 0 0; }
 .header h1 { font-size: 22px; font-weight: 800; color: #2e7d32; }
 .header .sub { font-size: 11px; color: #888; }
 .header .date { font-size: 12px; color: #555; margin-top: 2px; font-weight: 600; }
 
 .personal-trigger {
-  display: flex; align-items: center; gap: 6px;
-  background: #fff; border-radius: 10px; padding: 6px 12px;
-  margin: 6px 0; cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,0.03);
-  font-size: 12px; color: #888; user-select: none;
+  display: inline-flex; align-items: center; gap: 4px;
+  background: rgba(255,255,255,0.7); border-radius: 10px; padding: 3px 10px;
+  cursor: pointer; font-size: 11px; color: #888; user-select: none;
+  vertical-align: middle; margin-left: 6px;
 }
-.personal-trigger .arrow { margin-left: auto; transition: transform 0.2s; font-size: 10px; }
+.personal-trigger .arrow { transition: transform 0.2s; font-size: 9px; }
 .personal-trigger.open .arrow { transform: rotate(180deg); }
-.personal-trigger .active-dot { display:none; width:6px;height:6px;background:#66bb6a;border-radius:50%;margin-left:4px; }
+.personal-trigger .active-dot { display:none; width:5px;height:5px;background:#66bb6a;border-radius:50%;margin-left:2px; }
 .personal-trigger.hasValue .active-dot { display:inline-block; }
 
 .personal-panel {
@@ -46,25 +46,14 @@ body {
 
 /* 主卡片 */
 .main-card { background:#fff; border-radius:16px; padding:14px 16px 10px; text-align:center; box-shadow:0 2px 10px rgba(0,0,0,0.05); }
-.sign-icon { font-size:28px; margin-bottom:2px; }
+.sign-icon { font-size:20px; margin-bottom:1px; }
 .sign-text { font-size:17px; font-weight:700; color:#222; line-height:1.3; margin-bottom:3px; }
 .sign-detail { font-size:12px; color:#888; line-height:1.4; margin-bottom:6px; }
 
-/* 指数行 */
-.idx-row { display:flex; justify-content:center; gap:16px; margin-bottom:10px; }
-.idx-item { text-align:center; }
-.idx-emoji { font-size:16px; }
-.idx-stars { font-size:14px; color:#f9a825; letter-spacing:1px; margin-top:1px; }
-
 /* 天气条 */
-.wx-bar { display:flex; align-items:center; gap:6px; background:#f9f9f9; border-radius:8px; padding:7px 12px; margin-bottom:6px; }
+.wx-bar { display:flex; align-items:center; gap:6px; background:#f9f9f9; border-radius:8px; padding:7px 12px; margin-bottom:4px; }
 .wx-bar .wx-emoji { font-size:18px; }
 .wx-bar .wx-roast { font-size:12px; color:#555; font-style:italic; line-height:1.4; flex:1; }
-
-/* 宜忌行 */
-.dd-row { display:flex; justify-content:center; gap:12px; margin-bottom:10px; }
-.dd-do { color:#2e7d32; font-size:12px; }
-.dd-dont { color:#c62828; font-size:12px; }
 
 /* 茂名新鲜事 */
 .news-strip { margin:6px 0 0; }
@@ -91,12 +80,6 @@ body {
 .news-title { font-size:14px; font-weight:700; color:#222; margin-bottom:4px; line-height:1.4; }
 .news-text { font-size:12px; color:#666; line-height:1.5; margin-bottom:4px; }
 .news-roast { font-size:12px; color:#888; font-style:italic; }
-.news-shuffle {
-  display:block; width:100%; background:none; border:1.5px dashed #ddd; border-radius:10px;
-  padding:8px; font-size:12px; color:#999; cursor:pointer; margin-top:8px; font-family:inherit;
-}
-.news-shuffle:active{background:#f9f9f9;}
-
 /* 每日状态打卡 */
 .checkin-bar { margin:10px 0; }
 .checkin-title { font-size:14px; font-weight:700; color:#222; margin-bottom:6px; }
@@ -218,11 +201,10 @@ body {
   <div class="header">
     <h1>茂名今日签</h1>
     <div class="sub">今日茂名人精神状态速查</div>
-    <div class="date" id="dateDisplay"></div>
-  </div>
-
-  <div class="personal-trigger" id="personalTrigger" onclick="togglePersonal()">
-    <span>🎯 让今日签更像你</span><span class="active-dot" id="activeDot"></span><span class="arrow">▾</span>
+    <div class="date">
+      <span id="dateDisplay"></span>
+      <span class="personal-trigger" id="personalTrigger" onclick="togglePersonal()">🎯 更像你<span class="active-dot" id="activeDot"></span><span class="arrow">▾</span></span>
+    </div>
   </div>
   <div class="personal-panel" id="personalPanel">
     <div class="pr-split">
@@ -256,9 +238,9 @@ body {
   <div class="news-strip" id="newsStrip">
     <div class="news-header">
       <div><h3>💬 最近茂名人在聊</h3><div class="news-sub">来自真实茂名生活，定期更新</div></div>
+      <button onclick="shuffleNews()" style="background:none;border:1px solid #ddd;border-radius:12px;padding:4px 10px;font-size:11px;color:#999;cursor:pointer;font-family:inherit;">🔄 换一批</button>
     </div>
     <div class="news-scroll" id="newsScroll"></div>
-    <button class="news-shuffle" onclick="shuffleNews()">🔄 换一批新鲜事</button>
   </div>
 
   <div class="entry-zone">
@@ -310,7 +292,7 @@ function pickMulti(arr,seed,count){var indices=[],result=[];for(var i=0;i<arr.le
 function starRating(seed,index){var v=seededRandom(seed+index*251);var stars=Math.floor(v*5)+1;var s='';for(var i=0;i<5;i++)s+=i<stars?'★':'☆';return s;}
 
 var dailySigns=['今天适合低调发财，不适合高调解释。','有些消息不用秒回，尤其是开头叫"兄弟在吗"的。','你今天的好运藏在空调房里。','今日关键词：稳住，别在群里输出。','真正的成熟，是知道"有空饮茶"多数时候只是礼貌。','今天你的运气余额充足，但耐心余额可能不太够。','今日宜：把事情做了。今日忌：把事情想复杂了。','你今天的状态，像刚喝完一碗牛腩汤——暖但不太想动。','今天有一种"明明什么事都没做但就是很累"的富贵命。','好运正在排队，前面还有3个消息等你已读。','今天适合当观众，不适合当主角。安心吃瓜。','你今天最大的敌人，是下午两点的困意和晚上八点的外卖选择困难症。'];
-var signDetails=['别在没必要的局里浪费表情，省下来的热情留给真朋友。','有些事交给明天，明天会说"我也没办法"。所以今天先试试。','你今天的好运藏在空调房里。','今日关键词：稳住，别在群里输出。','真正的成熟，是知道"有空饮茶"多数时候只是礼貌。','今天你的运气余额充足，但耐心余额可能不太够。','今日宜：把事情做了。今日忌：把事情想复杂了。','你今天的状态，像刚喝完一碗牛腩汤——暖但不太想动。','今天有一种"明明什么事都没做但就是很累"的富贵命。','好运正在排队，前面还有3个消息等你已读。','今天适合当观众，不适合当主角。安心吃瓜。','你今天最大的敌人，是下午两点的困意和晚上八点的外卖选择困难症。'];
+var signDetails=['别在没必要的局里浪费表情，省下来的热情留给真朋友。','有些事交给明天，明天会说"我也没办法"。所以今天先试试。','你今天的好运藏在空调房里。','今日关键词：稳住，别在群里输出。','真正的成熟，是知道"有空饮茶"多数时候只是礼貌。','今天你的运气余额充足，但耐心余额可能不太够。','今日宜：把事情做了。今日忌：把事情想复杂了。','你今天的状态，像刚喝完一碗牛腩汤——暖但不太想动。','今天有一种"明明什么事都没做但就是很累"的富贵命。','未读消息留着不回不是懒，是你对时间的掌控感。','今天适合当观众，不适合当主角。安心吃瓜。','你今天最大的敌人，是下午两点的困意和晚上八点的外卖选择困难症。'];
 
 // 天气专属签种——真实天气时混入今日签池
 var WEATHER_SIGNS={
