@@ -278,13 +278,13 @@ body {
           <span class="em-sub">夹菜手速测试</span>
         </span>
       </button>
-      <button class="entry-mini" onclick="showToast('反馈入口准备中，先记你一票')">
+      <a href="https://wj.qq.com/s2/26780919/98e5/" target="_blank" class="entry-mini" style="text-decoration:none;">
         <span class="em-icon">💬</span>
         <span>
           <span class="em-title">功能许愿</span>
           <span class="em-sub">想加什么，来骂两句</span>
         </span>
-      </button>
+      </a>
     </div>
   </div>
 </div>
@@ -705,14 +705,33 @@ function showCheckinResult(statusId,streak){
   el.classList.add('show');
 }
 
-var globalNewsSeed=0;
+// ── 日历节点自动检测 ──
+function getCalendarTags(){
+  var d=new Date(),m=d.getMonth()+1,day=d.getDate();
+  var tags=[];
+  if(m===5&&day>=15||m===6&&day<=9)tags.push('高考','毕业季');
+  if(m===5||m===6&&day<=20)tags.push('荔枝季');
+  if(m===6&&day>=5&&day<=25)tags.push('端午');
+  if(m>=6&&m<=8)tags.push('暑假','台风季');
+  if(m>=7&&m<=8||m===6&&day>=20)tags.push('省运会');
+  if(m===6&&day>=5)tags.push('毕业季');
+  return tags;
+}
+
 var recentNewsIdx=0;
+var calendarNewsIdx=0;
 function renderNews(){
-  var seed=daySeed+globalNewsSeed;
-  // 长期池 + 近期池都顺序翻页，换一批时一起翻
-  var lidx=(recentNewsIdx+Math.floor(seededRandom(daySeed)*NEWS_LONG.length))%NEWS_LONG.length;
-  var ridx=recentNewsIdx%NEWS_RECENT.length;
-  var items=[NEWS_LONG[lidx],NEWS_RECENT[ridx]];
+  var left=NEWS_RECENT[recentNewsIdx%NEWS_RECENT.length];
+  var calTags=getCalendarTags();
+  var calPool=[];
+  for(var c=0;c<NEWS_RECENT.length;c++){
+    if(calTags.indexOf(NEWS_RECENT[c].tag)>=0)calPool.push(NEWS_RECENT[c]);
+  }
+  var right=calPool.length>0?calPool[calendarNewsIdx%calPool.length]:NEWS_RECENT[(recentNewsIdx+1)%NEWS_RECENT.length];
+  if(NEWS_RECENT.length>2&&left.title===right.title){
+    right=NEWS_RECENT[(recentNewsIdx+2)%NEWS_RECENT.length];
+  }
+  var items=[left,right];
   var h='';
   for(var i=0;i<items.length;i++){
     var n=items[i];
@@ -733,7 +752,7 @@ function renderNews(){
 }
 function shuffleNews(){
   recentNewsIdx++;
-  globalNewsSeed++;
+  calendarNewsIdx++;
   renderNews();
 }
 
