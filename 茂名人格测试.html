@@ -3,12 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="description" content="10道茂名生活场景题，测出你的隐藏人格代码——年例开麦王还是角落白切鸡？茂名人都在测。">
+<meta property="og:title" content="茂名人格图鉴">
+<meta property="og:description" content="10道茂名生活场景题，测出你的隐藏人格代码——年例开麦王还是角落白切鸡？">
+<meta property="og:type" content="website">
+<meta property="og:url" content="" id="ogUrl">
 <title>茂名人格图鉴</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
   font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
-  background: linear-gradient(135deg, #ff6b35, #f7931e, #ffb347);
+  background: linear-gradient(160deg, #e0f7f5 0%, #b2dfdb 40%, #fff8e1 100%);
   min-height: 100vh; color: #333;
 }
 .container { max-width: 420px; margin: 0 auto; padding: 20px 16px 40px; }
@@ -18,26 +23,26 @@ body {
 .hero h1 { font-size:36px; color:#fff; text-shadow:0 2px 12px rgba(0,0,0,0.2); margin-bottom:6px; letter-spacing:2px; }
 .hero .subtitle { font-size:14px; color:rgba(255,255,255,0.85); line-height:1.7; margin-bottom:28px; }
 .hero .icon-row { font-size:44px; margin-bottom:16px; letter-spacing:6px; }
-.start-btn { display:inline-block; background:#fff; color:#e86a1d; font-size:18px; font-weight:700; padding:15px 52px; border-radius:50px; border:none; cursor:pointer; box-shadow:0 4px 20px rgba(0,0,0,0.18); transition:transform .15s; }
+.start-btn { display:inline-block; background:#fff; color:#159A9C; font-size:18px; font-weight:700; padding:15px 52px; border-radius:50px; border:none; cursor:pointer; box-shadow:0 4px 20px rgba(0,0,0,0.12); transition:transform .15s; }
 .start-btn:active { transform:scale(0.96); }
 
 .card { background:#fff; border-radius:20px; padding:28px 20px; margin-bottom:16px; box-shadow:0 4px 20px rgba(0,0,0,0.08); }
 
 .progress-wrap { margin-bottom:20px; }
 .progress-bar { height:6px; background:#eee; border-radius:3px; overflow:hidden; }
-.progress-fill { height:100%; background:linear-gradient(90deg,#ff6b35,#f7931e); border-radius:3px; transition:width .3s; }
+.progress-fill { height:100%; background:linear-gradient(90deg,#159A9C,#2FB8AC); border-radius:3px; transition:width .3s; }
 .progress-text { font-size:12px; color:#999; margin-top:6px; text-align:right; }
 
 .q-title { font-size:18px; font-weight:700; margin-bottom:20px; line-height:1.5; color:#222; }
 .option { display:block; width:100%; text-align:left; background:#f8f8f8; border:2px solid transparent; border-radius:14px; padding:14px 16px; margin-bottom:10px; font-size:15px; color:#444; cursor:pointer; transition:all .15s; line-height:1.4; }
-.option:active,.option.selected { background:#fff5ed; border-color:#ff6b35; color:#e86a1d; }
+.option:active,.option.selected { background:#e0f7f5; border-color:#159A9C; color:#0d7b7e; }
 
 .result-section { display:none; }
 .result-card { background:#fff; border-radius:20px; padding:24px 20px; text-align:center; box-shadow:0 4px 20px rgba(0,0,0,0.08); margin-bottom:16px; }
 .result-icon { font-size:52px; margin-bottom:6px; }
-.result-label { display:inline-block; background:linear-gradient(135deg,#ff6b35,#f7931e); color:#fff; font-size:20px; font-weight:800; padding:7px 24px; border-radius:50px; margin-bottom:6px; }
+.result-label { display:inline-block; background:linear-gradient(135deg,#159A9C,#1AA6A6); color:#fff; font-size:20px; font-weight:800; padding:7px 24px; border-radius:50px; margin-bottom:6px; }
 .result-code { font-size:13px; color:#999; margin-bottom:8px; letter-spacing:1px; }
-.result-punch { font-size:15px; color:#e86a1d; font-weight:700; line-height:1.6; margin-bottom:12px; background:#fff5ed; padding:10px 14px; border-radius:12px; }
+.result-punch { font-size:15px; color:#0d7b7e; font-weight:700; line-height:1.6; margin-bottom:12px; background:#e0f7f5; padding:10px 14px; border-radius:12px; }
 .result-desc { font-size:13px; color:#666; line-height:1.7; margin-bottom:14px; text-align:left; }
 
 /* 维度条 */
@@ -46,17 +51,32 @@ body {
 .dim-label-l { color:#555; min-width:50px; text-align:right; }
 .dim-label-r { color:#555; min-width:50px; text-align:left; }
 .dim-track { flex:1; height:6px; background:#eee; border-radius:3px; overflow:hidden; position:relative; }
-.dim-fill { height:100%; background:linear-gradient(90deg,#ff6b35,#f7931e); border-radius:3px; transition:width .3s; }
+.dim-fill { height:100%; background:linear-gradient(90deg,#159A9C,#2FB8AC); border-radius:3px; transition:width .3s; }
 .dim-indicator { font-size:10px; color:#999; min-width:28px; text-align:center; }
 
 .result-motto { display:inline-block; color:#999; font-size:12px; margin-bottom:14px; font-style:italic; }
 .result-tags { display:flex; flex-wrap:wrap; gap:6px; justify-content:center; margin-bottom:6px; }
 .tag { background:#f0f0f0; color:#777; font-size:11px; padding:3px 10px; border-radius:10px; }
 
-.share-hint { background:#fff5ed; border-radius:14px; padding:16px; text-align:center; margin-bottom:16px; }
-.share-hint p { font-size:14px; color:#e86a1d; font-weight:600; margin-bottom:10px; }
-.share-btn { display:inline-block; background:linear-gradient(135deg,#ff6b35,#f7931e); color:#fff; font-size:15px; font-weight:700; padding:10px 36px; border-radius:50px; border:none; cursor:pointer; }
-.share-btn:active { transform:scale(0.96); }
+.share-hint { background:#e0f7f5; border-radius:14px; padding:16px; text-align:center; margin-bottom:16px; }
+.share-hint p { font-size:14px; color:#159A9C; font-weight:600; margin-bottom:12px; }
+.share-actions { display:flex; flex-direction:column; gap:8px; }
+.share-act-btn {
+  display:flex; align-items:center; justify-content:center; gap:6px;
+  width:100%; border:none; border-radius:12px; padding:12px 16px;
+  font-size:14px; font-weight:600; cursor:pointer; font-family:inherit;
+  transition:transform .12s;
+}
+.share-act-btn:active { transform:scale(.97); }
+.share-act-btn.primary { background:linear-gradient(135deg,#159A9C,#1AA6A6); color:#fff; }
+.share-act-btn.secondary { background:#fff; color:#159A9C; border:1.5px solid #159A9C; }
+.share-act-btn.hint { background:#fff8e1; color:#b8860b; border:1.5px solid #f6c85f; }
+.share-toast {
+  position:fixed; top:50%; left:50%; transform:translate(-50%,-50%);
+  background:rgba(0,0,0,.78); color:#fff; font-size:14px; padding:12px 28px;
+  border-radius:24px; z-index:100; pointer-events:none; opacity:0; transition:opacity .3s;
+}
+.share-toast.show { opacity:1; }
 .retake-btn { display:block; width:100%; background:#fff; color:#999; border:1px solid #ddd; font-size:13px; padding:12px; border-radius:50px; cursor:pointer; text-align:center; }
 .hidden { display:none; }
 </style>
@@ -73,7 +93,7 @@ body {
       <button class="start-btn" onclick="start()">开始测试</button>
     </div>
     <div class="card" style="text-align:center;color:#999;font-size:12px;">
-      已有 <b id="fakeCount" style="color:#ff6b35;">3,000</b>+ 茂名人测过 · 朋友圈已沦陷
+      已有 <b id="fakeCount" style="color:#159A9C;">3,000</b>+ 茂名人测过 · 朋友圈已沦陷
     </div>
   </section>
 
@@ -87,6 +107,8 @@ body {
 
   <section id="resultSection" class="result-section"></section>
 </div>
+
+<div class="share-toast" id="shareToast"></div>
 
 <script>
 // ── 四维度定义 ──
@@ -433,8 +455,12 @@ function showResult(){
       '</div>'+
     '</div>'+
     '<div class="share-hint">'+
-      '<p>📸 截图发朋友圈，看看你朋友是哪种茂名人格</p>'+
-      '<button class="share-btn" onclick="share()">发给朋友</button>'+
+      '<p>📸 分享你的茂名人格结果</p>'+
+      '<div class="share-actions">'+
+        '<button class="share-act-btn primary" onclick="shareCopy()">📋 复制我的人格结果</button>'+
+        '<button class="share-act-btn secondary" onclick="shareSend()">💬 发给朋友测一下</button>'+
+        '<button class="share-act-btn hint" onclick="shareScreenshot()">📸 截图发朋友圈</button>'+
+      '</div>'+
     '</div>'+
     '<button class="retake-btn" onclick="start()">再测一次</button>';
 
@@ -446,27 +472,75 @@ function showResult(){
   window._resultCode=type.code;
 }
 
-function share(){
-  var type=window._resultType;
-  if(!type)return;
-  var text='我的茂名人格代码是「'+type.code+'」——'+type.label+'\n\n"'+type.punch+'"\n\n你也来测测你的茂名人格代码 →';
-  if(navigator.share){navigator.share({title:'茂名人格图鉴',text:text,url:location.href}).catch(function(){fallbackCopy(text);});}
-  else{fallbackCopy(text);}
+function isWechat(){
+  return /MicroMessenger/i.test(navigator.userAgent||'');
 }
 
-function fallbackCopy(text){
+function getShareText(){
+  var type=window._resultType;
+  if(!type)return '';
+  return '我测出来是「'+type.label+'」｜茂名人格代码 '+type.code+'。\n"'+type.punch+'"\n你也测测你是什么茂名人格：';
+}
+
+function showShareToast(msg){
+  var t=document.getElementById('shareToast');
+  if(!t)return;
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(function(){t.classList.remove('show');},2000);
+}
+
+function shareCopy(){
+  var text=getShareText();
+  if(!text)return;
+  var full=text+'\n'+location.href;
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(full).then(function(){
+      showShareToast('已复制结果，去发给朋友吧！');
+    }).catch(function(){
+      fallbackCopyText(full);
+    });
+  }else{
+    fallbackCopyText(full);
+  }
+}
+
+function fallbackCopyText(text){
   var ta=document.createElement('textarea');
-  ta.value=text+'\n'+location.href;ta.style.position='fixed';ta.style.opacity='0';
+  ta.value=text;ta.style.position='fixed';ta.style.opacity='0';
   document.body.appendChild(ta);ta.select();
-  try{document.execCommand('copy');alert('已复制文案，去发给朋友吧！');}
-  catch(e){alert('截图发朋友圈吧！\n\n'+text);}
+  try{document.execCommand('copy');showShareToast('已复制结果，去发给朋友吧！');}
+  catch(e){showShareToast('复制失败，请截图分享吧');}
   document.body.removeChild(ta);
+}
+
+function shareSend(){
+  var text=getShareText();
+  if(!text)return;
+  if(isWechat()){
+    showShareToast('点右上角 ··· 转发给朋友 / 朋友圈');
+    return;
+  }
+  if(navigator.share){
+    navigator.share({title:'茂名人格图鉴',text:text,url:location.href}).catch(function(){});
+  }else{
+    shareCopy();
+  }
+}
+
+function shareScreenshot(){
+  if(isWechat()){
+    showShareToast('点右上角 ··· 转发给朋友 / 朋友圈');
+    return;
+  }
+  showShareToast('截好图后，去朋友圈发吧！');
 }
 
 (function(){
   var base=3000+Math.floor(Math.random()*500);
   var el=document.getElementById('fakeCount');
   if(el)el.textContent=base.toLocaleString();
+  var ogUrl=document.getElementById('ogUrl');
+  if(ogUrl)ogUrl.setAttribute('content',location.href);
 })();
 </script>
 </body>

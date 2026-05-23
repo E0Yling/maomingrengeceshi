@@ -3,6 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="description" content="茂名今日签——每天一条茂名人精神状态速查，带真实天气和本地新鲜事。还有茂名人格测试，测测你是年例开麦王还是角落白切鸡。">
+<meta property="og:title" content="茂名今日签 · 茂名人格测试">
+<meta property="og:description" content="茂名今日签——每天一条茂名人精神状态速查。还有茂名人格测试，测测你是年例开麦王还是角落白切鸡。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="" id="ogUrl">
 <title>茂名今日签</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -265,6 +270,11 @@ body {
           <span class="em-sub">想加什么，来骂两句</span>
         </span>
       </a>
+    </div>
+    <div class="share-bar" style="display:flex;align-items:center;gap:8px;background:#fff;border-radius:11px;padding:8px 14px;box-shadow:0 1px 5px rgba(0,0,0,0.03);cursor:pointer;font-family:inherit;margin-top:0;" onclick="shareHome()">
+      <span style="font-size:16px;">📤</span>
+      <span style="flex:1;font-size:12px;color:#555;font-weight:600;">觉得像茂名人？发给朋友测一下</span>
+      <span style="font-size:14px;color:#ccc;">›</span>
     </div>
   </div>
 </div>
@@ -772,9 +782,38 @@ window.addEventListener('scroll',function(){
   document.getElementById('backTop').classList.toggle('show',window.scrollY>200);
 });
 
+function shareHome(){
+  var text='茂名今日签 + 茂名人格测试，看看你是年例开麦王还是角落白切鸡：';
+  if(/MicroMessenger/i.test(navigator.userAgent||'')){
+    showToast('点右上角 ··· 转发给朋友 / 朋友圈');
+    return;
+  }
+  if(navigator.share){
+    navigator.share({title:'茂名今日签 · 茂名人格测试',text:text,url:location.href}).catch(function(){});
+  }else{
+    var full=text+'\n'+location.href;
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(full).then(function(){
+        showToast('已复制链接，去发给朋友吧！');
+      }).catch(function(){
+        showToast('已复制链接，去发给朋友吧！');
+      });
+    }else{
+      var ta=document.createElement('textarea');
+      ta.value=full;ta.style.position='fixed';ta.style.opacity='0';
+      document.body.appendChild(ta);ta.select();
+      try{document.execCommand('copy');showToast('已复制链接，去发给朋友吧！');}
+      catch(e){showToast('分享链接：\n'+full);}
+      document.body.removeChild(ta);
+    }
+  }
+}
+
 (function init(){
   var d=new Date();
   document.getElementById('dateDisplay').textContent=(d.getMonth()+1)+'月'+d.getDate()+'日 · 星期'+['日','一','二','三','四','五','六'][d.getDay()];
+  var ogUrl=document.getElementById('ogUrl');
+  if(ogUrl)ogUrl.setAttribute('content',location.href);
   if(loadForm()){
     var seed=getPersonalSeed();
     renderAll(seed,currentIdentity,currentMood);
