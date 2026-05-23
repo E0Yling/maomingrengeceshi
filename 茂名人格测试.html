@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>茂名人格图鉴</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: linear-gradient(135deg, #ff6b35, #f7931e, #ffb347);
+  min-height: 100vh; color: #333;
+}
+.container { max-width: 420px; margin: 0 auto; padding: 20px 16px 40px; }
+
+.hero { text-align: center; padding: 40px 0 30px; }
+.hero .tagline { display:inline-block; background:rgba(255,255,255,0.2); color:#fff; font-size:13px; padding:6px 16px; border-radius:20px; margin-bottom:16px; }
+.hero h1 { font-size:36px; color:#fff; text-shadow:0 2px 12px rgba(0,0,0,0.2); margin-bottom:6px; letter-spacing:2px; }
+.hero .subtitle { font-size:14px; color:rgba(255,255,255,0.85); line-height:1.7; margin-bottom:28px; }
+.hero .icon-row { font-size:44px; margin-bottom:16px; letter-spacing:6px; }
+.start-btn { display:inline-block; background:#fff; color:#e86a1d; font-size:18px; font-weight:700; padding:15px 52px; border-radius:50px; border:none; cursor:pointer; box-shadow:0 4px 20px rgba(0,0,0,0.18); transition:transform .15s; }
+.start-btn:active { transform:scale(0.96); }
+
+.card { background:#fff; border-radius:20px; padding:28px 20px; margin-bottom:16px; box-shadow:0 4px 20px rgba(0,0,0,0.08); }
+
+.progress-wrap { margin-bottom:20px; }
+.progress-bar { height:6px; background:#eee; border-radius:3px; overflow:hidden; }
+.progress-fill { height:100%; background:linear-gradient(90deg,#ff6b35,#f7931e); border-radius:3px; transition:width .3s; }
+.progress-text { font-size:12px; color:#999; margin-top:6px; text-align:right; }
+
+.q-title { font-size:18px; font-weight:700; margin-bottom:20px; line-height:1.5; color:#222; }
+.option { display:block; width:100%; text-align:left; background:#f8f8f8; border:2px solid transparent; border-radius:14px; padding:14px 16px; margin-bottom:10px; font-size:15px; color:#444; cursor:pointer; transition:all .15s; line-height:1.4; }
+.option:active,.option.selected { background:#fff5ed; border-color:#ff6b35; color:#e86a1d; }
+
+.result-section { display:none; }
+.result-card { background:#fff; border-radius:20px; padding:24px 20px; text-align:center; box-shadow:0 4px 20px rgba(0,0,0,0.08); margin-bottom:16px; }
+.result-icon { font-size:52px; margin-bottom:6px; }
+.result-label { display:inline-block; background:linear-gradient(135deg,#ff6b35,#f7931e); color:#fff; font-size:20px; font-weight:800; padding:7px 24px; border-radius:50px; margin-bottom:6px; }
+.result-code { font-size:13px; color:#999; margin-bottom:8px; letter-spacing:1px; }
+.result-punch { font-size:15px; color:#e86a1d; font-weight:700; line-height:1.6; margin-bottom:12px; background:#fff5ed; padding:10px 14px; border-radius:12px; }
+.result-desc { font-size:13px; color:#666; line-height:1.7; margin-bottom:14px; text-align:left; }
+
+/* 维度条 */
+.dim-section { margin-bottom:10px; }
+.dim-row { display:flex; align-items:center; gap:6px; margin-bottom:5px; font-size:12px; }
+.dim-label-l { color:#555; min-width:50px; text-align:right; }
+.dim-label-r { color:#555; min-width:50px; text-align:left; }
+.dim-track { flex:1; height:6px; background:#eee; border-radius:3px; overflow:hidden; position:relative; }
+.dim-fill { height:100%; background:linear-gradient(90deg,#ff6b35,#f7931e); border-radius:3px; transition:width .3s; }
+.dim-indicator { font-size:10px; color:#999; min-width:28px; text-align:center; }
+
+.result-motto { display:inline-block; color:#999; font-size:12px; margin-bottom:14px; font-style:italic; }
+.result-tags { display:flex; flex-wrap:wrap; gap:6px; justify-content:center; margin-bottom:6px; }
+.tag { background:#f0f0f0; color:#777; font-size:11px; padding:3px 10px; border-radius:10px; }
+
+.share-hint { background:#fff5ed; border-radius:14px; padding:16px; text-align:center; margin-bottom:16px; }
+.share-hint p { font-size:14px; color:#e86a1d; font-weight:600; margin-bottom:10px; }
+.share-btn { display:inline-block; background:linear-gradient(135deg,#ff6b35,#f7931e); color:#fff; font-size:15px; font-weight:700; padding:10px 36px; border-radius:50px; border:none; cursor:pointer; }
+.share-btn:active { transform:scale(0.96); }
+.retake-btn { display:block; width:100%; background:#fff; color:#999; border:1px solid #ddd; font-size:13px; padding:12px; border-radius:50px; cursor:pointer; text-align:center; }
+.hidden { display:none; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <section id="homeSection">
+    <div class="hero">
+      <div class="tagline">茂名人的轻人格测试 · 不是 MBTI</div>
+      <h1>茂名人格图鉴</h1>
+      <div class="icon-row">🐔🌊🦐🔥🍊</div>
+      <p class="subtitle">10 道茂名生活场景题<br>测出你的茂名隐藏人格代码</p>
+      <button class="start-btn" onclick="start()">开始测试</button>
+    </div>
+    <div class="card" style="text-align:center;color:#999;font-size:12px;">
+      已有 <b id="fakeCount" style="color:#ff6b35;">3,000</b>+ 茂名人测过 · 朋友圈已沦陷
+    </div>
+  </section>
+
+  <section id="quizSection" class="hidden">
+    <div class="progress-wrap">
+      <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+      <div class="progress-text" id="progressText">1/10</div>
+    </div>
+    <div class="card" id="questionCard"></div>
+  </section>
+
+  <section id="resultSection" class="result-section"></section>
+</div>
+
+<script>
+// ── 四维度定义 ──
+var DIMS = [
+  { id:'social', left:'I 角落观察型', right:'E 年例开麦型',
+    leftDesc:'在角落安静观察，人少时更自在', rightDesc:'人越多越来劲，局没了你能散一半' },
+  { id:'action', left:'S 先躺一下型', right:'A 立刻出门型',
+    leftDesc:'先想想再说，计划好了再动', rightDesc:'想到就做，出门再说' },
+  { id:'stress', left:'R 吐槽散热型', right:'H 硬扛解决型',
+    leftDesc:'情绪先出去，吐槽完再想怎么办', rightDesc:'不声不响扛下来，做完了才说' },
+  { id:'drive', left:'F 新鲜体验型', right:'M 搞钱现实型',
+    leftDesc:'新鲜感是氧气，无聊是最大敌人', rightDesc:'现实一点没什么不好，搞钱让人安心' }
+];
+
+// ── 8 个人格类型 (向量 [社交,行动,压力,驱动] : +1/-1) ──
+var TYPES = [
+  { code:'E-A-H-M', label:'年例开麦王', icon:'🥁', vec:[ 1, 1, 1, 1],
+    punch:'有你在的局不会冷。不是在攒局，就是在去局的路上，到了还自带BGM。',
+    desc:'社交电量满格、立刻出门、硬扛解决、搞钱驱动。你是茂名社交圈的永动机，饭局的定海神针。但注意：偶尔一个人待着也没关系。',
+    motto:'没有我的年例不叫年例。',
+    tags:['社交C位','行动力拉满','靠谱但累','搞钱意识强'] },
+  { code:'E-A-R-F', label:'海边散热型', icon:'🌊', vec:[ 1, 1,-1,-1],
+    punch:'茂名版海王——不是那个海王，是真的想去海边。',
+    desc:'社交开朗、立刻出门、吐槽散热、新鲜驱动。什么事情都能让你兴奋三分钟，然后找下一个兴奋点。生活不是一条直线，是一串海浪。',
+    motto:'不开心就去海边，去完还不开心就再吃顿海鲜。',
+    tags:['社交型','爱新鲜','情绪来得快去得快','体验派'] },
+  { code:'I-A-R-F', label:'新鲜感海鲜人', icon:'🦐', vec:[-1, 1,-1,-1],
+    punch:'你对世界的热情跟茂名海鲜一样——新鲜热辣，但保质期短。',
+    desc:'内向但行动力强、吐槽散热、新鲜驱动。你不需要很多人，但需要很多事。一个人默默尝遍所有新开的店，才是你的快乐。',
+    motto:'一个人也可以很鲜。',
+    tags:['独行侠','行动力强','三分钟热度','品味好'] },
+  { code:'E-S-H-M', label:'搞钱清醒派', icon:'💸', vec:[ 1,-1, 1, 1],
+    punch:'社交只是手段，搞钱才是目的。年例桌上最清醒的那个人就是你。',
+    desc:'社交在线、先想后动、硬扛解决、搞钱驱动。你不是不社交，你是有选择地社交——凡是跟搞钱和正事有关的局，场场必到。',
+    motto:'可以 social，但要 ROI 为正。',
+    tags:['目标导向','社交精准','抗压','务实'] },
+  { code:'I-S-H-M', label:'硬扛炼油人', icon:'🛢️', vec:[-1,-1, 1, 1],
+    punch:'闷声扛大旗。出了问题第一反应不是求助，是"我再试试"。',
+    desc:'内向沉稳、先想后动、硬扛解决、搞钱驱动。你是朋友里最靠谱的那一个，也是最不会喊累的那一个。记住：偶尔求助不会让你变弱。',
+    motto:'多喝热水，扛一扛就过去了。',
+    tags:['靠谱','沉默型狠人','抗压天花板','务实派'] },
+  { code:'E-S-R-M', label:'收租幻想家', icon:'🏠', vec:[ 1,-1,-1, 1],
+    punch:'天天想躺平收租，结果月月满勤。理想和现实之间隔着一整个茂名湾。',
+    desc:'社交在线但懒得出门、嘴上吐槽但手上干活、搞钱驱动。你是典型的"嘴上说不要身体很诚实"——喊着不干了，手上的活比谁都多。',
+    motto:'明天就辞职……算了还是先把这个月工资拿到。',
+    tags:['乐观躺平','隐形卷王','社交体面人','搞钱但怕累'] },
+  { code:'I-S-R-F', label:'角落白切鸡', icon:'🐔', vec:[-1,-1,-1,-1],
+    punch:'年例桌上坐角落、全程埋头吃鸡的那个人。不是社恐，只是懒得演。',
+    desc:'内向安静、先想后动、吐槽散热、新鲜驱动。你觉得世界很吵，所以选择静静地看。但熟人面前，你比谁都疯。白切鸡蘸了沙姜才好吃，你熟了才知道甜。',
+    motto:'你以为我普通，其实我在等沙姜。',
+    tags:['慢热','内秀','观察者','对熟人疯'] },
+  { code:'I-A-H-M', label:'群聊潜水员', icon:'🤿', vec:[-1, 1, 1, 1],
+    punch:'群里万年潜水，但每条消息都看完。不说话不是因为没想法，是因为懒得打字。',
+    desc:'内向但行动力强、硬扛解决、搞钱驱动。你不喜欢当众发言，但事情一件没少做。群聊截图收藏一大堆，只是从来不回复。行动比言语响亮。',
+    motto:'我没说话，不代表我没在。',
+    tags:['沉默高能','独立','观察敏锐','执行力暗藏'] }
+];
+
+// ── 题库 (8 个维度对 × 2 备选 + 1 职业 + 1 偏好) ──
+// 每次测试从每对随机抽 1 道，Q9/Q10 固定
+var QUESTION_POOL=[
+  // ── 社交 + 行动 ──
+  [
+    { title:'茂名朋友突然喊你今晚去年例，你的第一反应是？', options:[
+      { text:'已经在挑穿什么了，没我到场算什么年例', dims:[0,2, 1,2] },
+      { text:'好啊，正好没事，说走就走', dims:[0,1, 1,2] },
+      { text:'先问都有谁去，再决定要不要出门', dims:[0,-2, 1,-1] },
+      { text:'找个借口婉拒，今晚只想瘫着', dims:[0,-2, 1,-2] }
+    ]},
+    { title:'朋友在群里喊"今晚桥北夜市宵夜，来不来？"你的反应是？', options:[
+      { text:'已经在换衣服了，发定位我马上到', dims:[0,2, 1,2] },
+      { text:'问一句"几个人"，人多就去，人少看情况', dims:[0,1, 1,1] },
+      { text:'想吃但不想动，让他们打包带一份行不行', dims:[0,-1, 1,-1] },
+      { text:'太晚了，下次再说，今晚已经进入躺平模式', dims:[0,-2, 1,-2] }
+    ]}
+  ],
+  // ── 压力 + 社交 ──
+  [
+    { title:'微信群里有人@你讨论一件事，但话题你不太熟，你怎么做？', options:[
+      { text:'潜水围观，但每条消息都会看', dims:[2,1, 0,-1] },
+      { text:'快速查一下资料，然后参与讨论', dims:[2,2, 0,1] },
+      { text:'发个表情包划水，不参与核心讨论', dims:[2,-1, 0,1] },
+      { text:'免打扰，假装没看到，退出群聊讨论', dims:[2,-2, 0,-2] }
+    ]},
+    { title:'家族群里长辈转发了一条养生谣言并@所有人，你的做法是？', options:[
+      { text:'截图发给密友吐槽，群里保持沉默', dims:[2,-1, 0,-1] },
+      { text:'礼貌回复"收到，谢谢分享"，不打长辈脸', dims:[2,1, 0,1] },
+      { text:'忍不住发了一条辟谣链接，然后撤回', dims:[2,2, 0,-1] },
+      { text:'无视，家族群从来不看，免打扰开三年了', dims:[2,-2, 0,-2] }
+    ]}
+  ],
+  // ── 行动 + 驱动 ──
+  [
+    { title:'周末早上醒来，窗外下大雨，你脑子里第一个念头是？', options:[
+      { text:'下雨天最适合出门喝热奶茶，穿上雨衣就出发', dims:[1,2, 3,-1] },
+      { text:'下雨正好，待在家把攒了一周的剧和外卖安排了', dims:[1,-2, 3,-1] },
+      { text:'挺好的，在家把下周的计划列一下', dims:[1,-1, 3,2] },
+      { text:'下雨天适合睡回笼觉，下午再说', dims:[1,-2, 3,-2] }
+    ]},
+    { title:'看到一家新开的店门口排长队，你路过时会？', options:[
+      { text:'新店？排！管它卖什么的先排了再说', dims:[1,2, 3,-2] },
+      { text:'记下来，等两周没人排了再来，不急', dims:[1,-2, 3,1] },
+      { text:'凑过去看看卖什么的，值不值得下次来', dims:[1,1, 3,1] },
+      { text:'路过，排队的店一律不考虑，浪费时间', dims:[1,-1, 3,2] }
+    ]}
+  ],
+  // ── 社交 + 驱动 ──
+  [
+    { title:'同事/同学约你去一个你从没去过的地方，你的态度是？', options:[
+      { text:'什么新鲜地方？走！没去过才要去啊', dims:[0,2, 3,-2] },
+      { text:'听起来不错，人不多的话就去', dims:[0,1, 3,-1] },
+      { text:'先看看远不远、贵不贵、值不值，再决定', dims:[0,-1, 3,2] },
+      { text:'不太想去，还是熟悉的地方舒服', dims:[0,-2, 3,1] }
+    ]},
+    { title:'朋友问你要不要一起报个兴趣班（跳舞/烘焙/冲浪），你的态度是？', options:[
+      { text:'报！学新东西就是活着的感觉', dims:[0,2, 3,-2] },
+      { text:'可以啊，有人一起就学，一个人就算了', dims:[0,1, 3,-1] },
+      { text:'先问问多少钱、几节课、在哪里，再决定', dims:[0,-1, 3,2] },
+      { text:'婉拒，我的兴趣是下班后不用去任何地方', dims:[0,-2, 3,1] }
+    ]}
+  ],
+  // ── 压力 + 行动 ──
+  [
+    { title:'明天有个 deadline 但你还差一大截，现在已经是晚上八点了，你怎么做？', options:[
+      { text:'不说废话，打开电脑开干', dims:[2,2, 1,2] },
+      { text:'先花十分钟列个冲刺计划，再高效执行', dims:[2,1, 1,-1] },
+      { text:'先跟朋友吐槽十分钟"这工作量不合理"，然后开始肝', dims:[2,-1, 1,1] },
+      { text:'焦虑但不想动，刷刷手机拖到最后一刻再说', dims:[2,-2, 1,-2] }
+    ]},
+    { title:'你计划好周末的安排突然全被打乱了，你的第一反应是？', options:[
+      { text:'深呼吸，重新排优先级，一件一件来', dims:[2,2, 1,-1] },
+      { text:'有点烦但立刻开始调整方案，不纠结', dims:[2,1, 1,2] },
+      { text:'先骂五分钟"怎么会这样"，然后认命重新弄', dims:[2,-1, 1,1] },
+      { text:'算了今天不适合做事，明天重新计划', dims:[2,-2, 1,-2] }
+    ]}
+  ],
+  // ── 社交 + 压力 ──
+  [
+    { title:'年例饭局上有人劝你喝酒，你不太想喝，你会？', options:[
+      { text:'直接说"今日不喝"，不解释', dims:[0,-1, 2,2] },
+      { text:'笑着说"开车来的下次一定"，轻松挡掉', dims:[0,2, 2,-1] },
+      { text:'倒一点意思一下，喝不喝是自己的事', dims:[0,1, 2,1] },
+      { text:'假装在喝但实际只抿了一小口，希望没人注意', dims:[0,-2, 2,-2] }
+    ]},
+    { title:'在一个全都是陌生人的饭局上，你的策略是？', options:[
+      { text:'主动自我介绍拉话题，陌生局就是新朋友圈', dims:[0,2, 2,1] },
+      { text:'先观察谁比较好聊，挑一个看起来面善的开始', dims:[0,1, 2,1] },
+      { text:'安静吃饭，有人跟我说话就回，没人就专心吃', dims:[0,-1, 2,-1] },
+      { text:'低头玩手机，心已飞回家，等第一个告辞的机会', dims:[0,-2, 2,-2] }
+    ]}
+  ],
+  // ── 行动 + 驱动 ──
+  [
+    { title:'茂名突然降温/刮台风，你的第一反应是？', options:[
+      { text:'赶紧检查窗户、囤点东西，安全第一', dims:[1,1, 3,2] },
+      { text:'打开窗感受一下风，拍照发朋友圈"台风来了"', dims:[1,2, 3,-2] },
+      { text:'早就准备好物资了，关窗睡觉等风过', dims:[1,-2, 3,1] },
+      { text:'给朋友群发"注意安全"，然后开始刷台风直播', dims:[1,-1, 3,-1] }
+    ]},
+    { title:'河东市场突然有新鲜又便宜的海鲜，但你已经买好菜了，你会？', options:[
+      { text:'果断买！多出来的菜明天吃，海鲜今天吃', dims:[1,2, 3,-2] },
+      { text:'犹豫三秒，算了一下预算，然后买了', dims:[1,1, 3,1] },
+      { text:'忍痛放弃，计划外的事情不做，下次再说', dims:[1,-1, 3,2] },
+      { text:'无所谓，已经买好了今晚就这样吧', dims:[1,-2, 3,1] }
+    ]}
+  ],
+  // ── 压力 + 驱动 ──
+  [
+    { title:'月底发现这个月花超了，你的应对是？', options:[
+      { text:'立刻打开记账本，分析钱花哪了，下月调整', dims:[2,2, 3,2] },
+      { text:'大概知道怎么回事，下个月省一点就行', dims:[2,1, 3,1] },
+      { text:'跟朋友吐槽"物价好贵"，然后默默减少不必要的开销', dims:[2,-1, 3,-1] },
+      { text:'管它呢，反正下个月还有工资，开心最重要', dims:[2,-2, 3,-2] }
+    ]},
+    { title:'老板/老师发来"有空吗聊一下"但不说什么事，你的反应是？', options:[
+      { text:'直接回"好"，然后快速复盘最近做了什么，准备应对', dims:[2,2, 3,2] },
+      { text:'回了"好的"但心里默默把最近所有可能出问题的事过了一遍', dims:[2,1, 3,1] },
+      { text:'跟旁边同事吐槽"你说他找我什么事"，然后才回消息', dims:[2,-1, 3,-1] },
+      { text:'装没看到先拖半小时，等自己想清楚再回', dims:[2,-2, 3,-2] }
+    ]}
+  ]
+];
+
+// Q9 职业画像 + Q10 偏好微调 (固定)
+var FIXED_Q=[
+  { title:'周四下午两点，你大概率在干嘛？', options:[
+    { text:'坐办公室对电脑，屏幕都不敢切出去', dims:[] },
+    { text:'在外面跑，见人 / 送货 / 巡店 / 跑业务', dims:[] },
+    { text:'在车间 / 工地 / 操作间，手上沾着东西', dims:[] },
+    { text:'在教室 / 图书馆 / 宿舍', dims:[] },
+    { text:'说不准，每天不一样，主打一个自由', dims:[] },
+    { text:'在家，别问，问就是在探索人生', dims:[] }
+  ]},
+  { title:'茂名突然多了一天带薪假期，你会用它来做什么？', options:[
+    { text:'组织朋友聚餐/唱K/一滩烧烤，一起嗨', dims:[0,1] },
+    { text:'一个人去没去过的地方探店/拍照/闲逛', dims:[3,-1] },
+    { text:'把平时没时间处理的杂事全部清掉', dims:[2,1] },
+    { text:'在家睡到自然醒，点外卖看剧，不出门', dims:[1,-1] },
+    { text:'研究一下副业或者搞钱的路子，不浪费', dims:[3,1] },
+    { text:'看心情，计划永远赶不上变化', dims:[1,1] }
+  ]}
+];
+
+var QUESTIONS=[];
+
+var dimScores=[0,0,0,0];
+var currentQ=0;
+var careerAnswer='';
+
+function start(){
+  dimScores=[0,0,0,0]; currentQ=0; careerAnswer='';
+  // 从每个维度对随机抽 1 题
+  QUESTIONS=[];
+  for(var p=0;p<QUESTION_POOL.length;p++){
+    QUESTIONS.push(QUESTION_POOL[p][Math.floor(Math.random()*QUESTION_POOL[p].length)]);
+  }
+  // 追加固定题
+  for(var f=0;f<FIXED_Q.length;f++){ QUESTIONS.push(FIXED_Q[f]); }
+
+  document.getElementById('homeSection').classList.add('hidden');
+  document.getElementById('quizSection').classList.remove('hidden');
+  document.getElementById('resultSection').style.display='none';
+  window.scrollTo({top:0,behavior:'smooth'});
+  showQuestion();
+}
+
+function showQuestion(){
+  var q=QUESTIONS[currentQ];
+  var pct=Math.round((currentQ/QUESTIONS.length)*100);
+  document.getElementById('progressFill').style.width=pct+'%';
+  document.getElementById('progressText').textContent=(currentQ+1)+'/'+QUESTIONS.length;
+  var h='<div class="q-title">'+q.title+'</div>';
+  for(var i=0;i<q.options.length;i++){
+    h+='<button class="option" onclick="pick('+i+',this)">'+q.options[i].text+'</button>';
+  }
+  document.getElementById('questionCard').innerHTML=h;
+}
+
+function pick(optIndex,btn){
+  var opts=document.querySelectorAll('.option');
+  for(var i=0;i<opts.length;i++)opts[i].classList.remove('selected');
+  btn.classList.add('selected');
+  setTimeout(function(){
+    var q=QUESTIONS[currentQ];
+    var chosen=q.options[optIndex];
+    if(currentQ===8){ careerAnswer=chosen.text; }
+    else if(chosen.dims&&chosen.dims.length>0){
+      for(var d=0;d<chosen.dims.length;d+=2){
+        dimScores[chosen.dims[d]]+=chosen.dims[d+1];
+      }
+    }
+    currentQ++;
+    if(currentQ<QUESTIONS.length){ showQuestion(); }
+    else{ showResult(); }
+  },200);
+}
+
+function showResult(){
+  document.getElementById('quizSection').classList.add('hidden');
+
+  // 原始分平滑: dimScores/2，保留一位小数，不做整数截断
+  var raw=[];
+  for(var d=0;d<4;d++)raw[d]=Math.max(-4,Math.min(4,parseFloat((dimScores[d]/2).toFixed(1))));
+
+  // 向量匹配: 用 raw 值而非整数 round，减少半分之差导致的翻转
+  var scores=[];
+  for(var t=0;t<TYPES.length;t++){
+    scores[t]=raw[0]*TYPES[t].vec[0]+raw[1]*TYPES[t].vec[1]+raw[2]*TYPES[t].vec[2]+raw[3]*TYPES[t].vec[3];
+  }
+  // 找第一和第二
+  var bestI=0,bestScore=-99,secondI=0,secondScore=-99;
+  for(var t=0;t<scores.length;t++){
+    if(scores[t]>bestScore){ secondScore=bestScore; secondI=bestI; bestScore=scores[t]; bestI=t; }
+    else if(scores[t]>secondScore){ secondScore=scores[t]; secondI=t; }
+  }
+  var type=TYPES[bestI];
+  var gap=bestScore-secondScore;
+  var showRunner=(gap<=2.5); // 差距 ≤2.5 显示次类型
+
+  // 职业标签
+  var careerTag='';
+  if(careerAnswer){
+    if(careerAnswer.includes('办公室')||careerAnswer.includes('电脑'))careerTag='办公室战士';
+    else if(careerAnswer.includes('跑')||careerAnswer.includes('送货')||careerAnswer.includes('见人'))careerTag='奔波型选手';
+    else if(careerAnswer.includes('车间')||careerAnswer.includes('工地')||careerAnswer.includes('操作间'))careerTag='实干派';
+    else if(careerAnswer.includes('教室')||careerAnswer.includes('图书馆')||careerAnswer.includes('宿舍'))careerTag='校园党';
+    else if(careerAnswer.includes('自由')||careerAnswer.includes('说不准'))careerTag='自由身';
+    else careerTag='探索中';
+  }
+
+  // 维度条 + 置信度标记
+  var dimHTML='';
+  var wobble=[];
+  for(var d=0;d<4;d++){
+    var pct=50+(raw[d]/8)*100;
+    var absV=Math.abs(raw[d]);
+    var side=raw[d]>=0?DIMS[d].right:DIMS[d].left;
+    var confidence='';
+    if(absV<=0.8)confidence=' ⚡摇摆';
+    else if(absV<=1.5)confidence=' ~偏'+side.split(' ')[0];
+    wobble[d]=absV<=1;
+    dimHTML+='<div class="dim-row">'+
+      '<span class="dim-label-l">'+DIMS[d].left+'</span>'+
+      '<div class="dim-track"><div class="dim-fill" style="width:'+pct+'%"></div></div>'+
+      '<span class="dim-label-r">'+DIMS[d].right+'</span>'+
+      '</div>'+
+      '<div class="dim-row" style="margin-bottom:8px;color:#999;font-size:10px;">'+
+      '<span style="min-width:50px;"></span>'+
+      '<span style="flex:1;text-align:center;">'+side+confidence+'</span>'+
+      '<span style="min-width:50px;"></span>'+
+      '</div>';
+  }
+
+  // 摇摆提醒
+  var wobbleCount=wobble.filter(function(x){return x;}).length;
+  var wobbleNote='';
+  if(wobbleCount>=2){
+    wobbleNote='<div style="background:#fffbf0;border-radius:10px;padding:8px 12px;margin-bottom:10px;font-size:11px;color:#b88020;text-align:center;">'+
+      '⚡ 你有 '+wobbleCount+' 个维度接近中间线，重测可能偏到相邻类型哦</div>';
+  }
+
+  // 次类型标记
+  var runnerHTML='';
+  if(showRunner){
+    var rtype=TYPES[secondI];
+    runnerHTML='<div style="background:#f9f9f9;border-radius:10px;padding:8px 12px;margin-bottom:10px;font-size:12px;color:#888;text-align:center;">'+
+      '也可能像 <b style="color:#555;">'+rtype.label+'</b>（'+rtype.code+'）'+
+      '</div>';
+  }
+
+  var html=
+    '<div class="result-card">'+
+      '<div class="result-icon">'+type.icon+'</div>'+
+      '<div class="result-label">'+type.label+'</div>'+
+      '<div class="result-code">茂名人格代码：'+type.code+'</div>'+
+      '<div class="result-punch">'+type.punch+'</div>'+
+      '<div class="result-desc">'+type.desc+'</div>'+
+      '<div class="dim-section">'+dimHTML+'</div>'+
+      wobbleNote+runnerHTML+
+      '<div class="result-motto">"'+type.motto+'"</div>'+
+      '<div class="result-tags">'+
+        type.tags.map(function(t){return'<span class="tag">'+t+'</span>';}).join('')+
+        (careerTag?'<span class="tag">'+careerTag+'</span>':'')+
+      '</div>'+
+    '</div>'+
+    '<div class="share-hint">'+
+      '<p>📸 截图发朋友圈，看看你朋友是哪种茂名人格</p>'+
+      '<button class="share-btn" onclick="share()">发给朋友</button>'+
+    '</div>'+
+    '<button class="retake-btn" onclick="start()">再测一次</button>';
+
+  document.getElementById('resultSection').innerHTML=html;
+  document.getElementById('resultSection').style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+
+  window._resultType=type;
+  window._resultCode=type.code;
+}
+
+function share(){
+  var type=window._resultType;
+  if(!type)return;
+  var text='我的茂名人格代码是「'+type.code+'」——'+type.label+'\n\n"'+type.punch+'"\n\n你也来测测你的茂名人格代码 →';
+  if(navigator.share){navigator.share({title:'茂名人格图鉴',text:text,url:location.href}).catch(function(){fallbackCopy(text);});}
+  else{fallbackCopy(text);}
+}
+
+function fallbackCopy(text){
+  var ta=document.createElement('textarea');
+  ta.value=text+'\n'+location.href;ta.style.position='fixed';ta.style.opacity='0';
+  document.body.appendChild(ta);ta.select();
+  try{document.execCommand('copy');alert('已复制文案，去发给朋友吧！');}
+  catch(e){alert('截图发朋友圈吧！\n\n'+text);}
+  document.body.removeChild(ta);
+}
+
+(function(){
+  var base=3000+Math.floor(Math.random()*500);
+  var el=document.getElementById('fakeCount');
+  if(el)el.textContent=base.toLocaleString();
+})();
+</script>
+</body>
+</html>
