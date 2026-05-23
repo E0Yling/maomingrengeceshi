@@ -63,9 +63,10 @@ body {
 .news-scroll { display:flex; gap:8px; overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; padding-bottom:4px; }
 .news-scroll::-webkit-scrollbar{display:none;}
 .news-card {
-  min-width:160px; max-width:180px; flex-shrink:0;
-  background:#fff; border-radius:11px; padding:10px; scroll-snap-align:start;
-  box-shadow:0 1px 6px rgba(0,0,0,0.04); cursor:pointer; transition:transform .12s;
+  min-width:auto; flex-shrink:0;
+  background:#fff; border-radius:9px; padding:8px 12px; scroll-snap-align:start;
+  box-shadow:0 1px 5px rgba(0,0,0,0.03); cursor:pointer; transition:transform .12s;
+  white-space:nowrap; display:flex; align-items:center; gap:4px;
 }
 .news-card:active{transform:scale(.97);}
 .news-tag-row { display:flex; align-items:center; gap:6px; margin-bottom:6px; }
@@ -717,13 +718,8 @@ function renderNews(){
     var heatStr='';
     for(var f=0;f<n.heat;f++)heatStr+='🔥';
     h+='<div class="news-card" onclick="showNewsDetail('+i+')">'+
-      '<div class="news-tag-row">'+
-        '<span class="news-ctag '+n.tagClass+'">'+n.tag+'</span>'+
-        '<span class="news-heat">'+heatStr+'</span>'+
-      '</div>'+
-      '<div class="news-title">'+n.title+'</div>'+
-      '<div class="news-text">'+n.text+'</div>'+
-      '<div class="news-roast">"'+n.roast+'"</div>'+
+      '<span class="news-ctag '+n.tagClass+'" style="margin-right:4px;">'+n.tag+'</span>'+
+      '<span class="news-title" style="display:inline;">'+n.title+'</span>'+
     '</div>';
   }
   window._currentNews=items;
