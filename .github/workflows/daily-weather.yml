@@ -1,0 +1,27 @@
+name: Daily Weather Update
+
+on:
+  schedule:
+    - cron: "30 22 * * *"   # UTC 22:30 = 北京时间 6:30
+  workflow_dispatch:          # 允许手动触发
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch Maoming weather
+        run: python scripts/fetch_weather.py
+
+      - name: Commit & push if changed
+        run: |
+          git config user.name "weather-bot"
+          git config user.email "bot@maoming.test"
+          git add src/maoming_weather.js
+          if git diff --staged --quiet; then
+            echo "No change"
+          else
+            git commit -m "Update weather $(date +%Y-%m-%d)"
+            git push
+          fi
